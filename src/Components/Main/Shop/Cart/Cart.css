@@ -1,0 +1,150 @@
+.empty-item {
+  height: 50vh;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+.Cart {
+  margin: 0;
+  padding: 30px 0;
+  background: linear-gradient(to bottom right, #156912b7, #e9fc80c7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.cart-container {
+  width: 90%;
+  margin: 0 30px;
+  height: 90%;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 20px 40px;
+}
+
+.cart-main-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+.cart-remove-all {
+  padding: 10px;
+  background-color: rgb(129, 10, 10);
+  color: white;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+/* Products added */
+.item-latest {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+  margin-top: 30px;
+}
+.item-image img {
+  height: 150px;
+}
+
+.item-latest-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border: rgb(123, 143, 131) solid 1px;
+  padding: 10px;
+  border-radius: 5px;
+}
+.item-update {
+  display: flex;
+}
+.item-quantity {
+  font-weight: bold;
+  font-size: 17px;
+  padding: 10px 15px;
+  margin: 0 5px;
+}
+.btn {
+  padding: 10px 15px;
+  margin: 0 5px;
+  color: white;
+  background-color: #0a7407;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.remove {
+  background-color: rgb(129, 10, 10) !important;
+}
+.btn.checkout {
+  background-color: yellowgreen;
+  color: black;
+  font-weight: bold;
+}
+.cart-footer {
+  display: flex;
+  justify-content: space-between;
+  margin: 55px 15px 25px 15px;
+}
+.item-details {
+  display: flex;
+}
+.item-details div {
+  margin: 5px;
+}
+
+@media only screen and (max-width: 630px) {
+  .item-latest {
+    flex-direction: column;
+  }
+  .item-details {
+    display: flex;
+  }
+  .item-details div {
+    margin: 10px;
+  }
+  .item-latest-footer {
+    flex-direction: column;
+  }
+  .cart-footer {
+    flex-direction: column;
+  }
+  .item-update {
+    flex-direction: column;
+  }
+}
+.css-1gsv261 {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
+  margin: 7px 5px !important;
+  color: #22ba22 !important;
+  border-radius: 10px !important;
+}
+div.singleProduct > div.MuiBox-root.css-8atqhb > div.MuiBox-root.css-1gsv261 {
+  background-color: white;
+}
+.Mui-selected.css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
+  color: rgb(44, 94, 243) !important;
+}
+.paystack-button {
+  border: none;
+  background-color: #0a7407;
+  color: white;
+  height: 40px;
+}
+.paxi-point-popup {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9999999;
+  width: 100%;
+  height: 100%;
+  display: none;
+}

@@ -1,0 +1,61 @@
+.About {
+  padding: 20px 20px;
+}
+
+.about-banner {
+  background-image: linear-gradient(
+      rgba(20, 20, 20, 0.7),
+      rgba(138, 202, 108, 0.7)
+    ),
+    url("./Assets/aboutBanner.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 400px;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.about-banner span:first-child {
+  font-size: 20px;
+}
+.about-banner span:last-child {
+  font-size: 28px;
+  font-weight: 100;
+}
+.p-title {
+  padding: 20px 0;
+}
+.about-moringa p {
+  padding: 8px 50px;
+  line-height: 1.9em;
+  text-align: justify;
+}
+.try-now {
+  text-align: center;
+  padding: 25px 0;
+}
+.try-now button {
+  margin-top: 15px;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  width: 60%;
+  font-size: 18px;
+  letter-spacing: 0.2em;
+  background-color: green;
+}
+.try-now button .linkItem {
+  color: white;
+}
+.linkItem {
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 550px) {
+  .about-moringa p {
+    padding: 8px 20px;
+  }
+}
