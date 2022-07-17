@@ -37,13 +37,13 @@ const Cart = () => {
   if (isEmpty)
     return (
       <div className="empty-item">
+        <Button variant="outlined" color="success" onClick={shopping}>Continue shopping</Button>
         <Box sx={{ width: "80%" }}>
           <Skeleton />
           <Skeleton animation="wave" />
           <Skeleton animation={false} />
         </Box>
         <h3 className="empty-cart">Your Cart is Empty</h3>
-        <Button variant="outlined" color="success" onClick={shopping}>Continue shopping</Button>
       </div>
     );
 

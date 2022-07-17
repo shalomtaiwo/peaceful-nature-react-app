@@ -150,6 +150,7 @@ export default function Checkout() {
   if (isEmpty)
     return (
       <div className="empty-item">
+        <Button variant="outlined" color="success" onClick={shopping}>Continue shopping</Button>
         <Box sx={{ width: "80%" }}>
           <Skeleton />
           <Skeleton animation="wave" />
@@ -160,7 +161,6 @@ export default function Checkout() {
           <br />
           Add some items to your cart
         </h3>
-        <Button variant="outlined" color="success" onClick={shopping}>Continue shopping</Button>
       </div>
     );
   if (!user)
