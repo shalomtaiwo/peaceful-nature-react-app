@@ -76,7 +76,7 @@ export default function OffCanvas() {
     <div>
       {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>
+          <Button onClick={toggleDrawer(anchor, true)} color='success'>
             {" "}
             <WidgetsIcon />{" "}
           </Button>
