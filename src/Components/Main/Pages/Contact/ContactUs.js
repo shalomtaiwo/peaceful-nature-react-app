@@ -11,6 +11,7 @@ import FacebookTwoToneIcon from "@mui/icons-material/FacebookTwoTone";
 import { Button } from "@mui/material";
 
 const ContactUs = () => {
+
   const handleSubmit = (e) => {
     e.preventDefault();
     let myForm = document.getElementById("userMessage");
@@ -20,7 +21,10 @@ const ContactUs = () => {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams(formData).toString(),
     })
-      .then(() => alert("Form successfully submitted"))
+      .then(() => {
+        alert("Form successfully submitted")
+        document.querySelector('.user-input').value = '';
+      })
       .catch((error) => alert(error));
   };
 
@@ -84,18 +88,19 @@ const ContactUs = () => {
           name="contact"
           method="POST"
           data-netlify="true"
+          netlify
         >
           <p className="cf">
             <label>Your Name:</label>
-            <input type="text" name="name" />
+            <input className="user-input" type="text" name="name" />
           </p>
           <p className="cf">
             <label>Your Email:</label>
-            <input type="email" name="email" />
+            <input className="user-input" type="email" name="email" />
           </p>
           <p className="cf">
             <label>Message:</label>
-            <textarea name="message" rows={7}></textarea>
+            <textarea className="user-input" name="message" rows={7}></textarea>
           </p>
           <p className="cf">
             <Button
