@@ -24,6 +24,8 @@ const ContactUs = () => {
       .then(() => {
         alert("Form successfully submitted")
         document.querySelector('.user-input').value = '';
+        document.querySelector('.user-email').value = '';
+        document.querySelector('.user-message').value = '';
       })
       .catch((error) => alert(error));
   };
@@ -92,15 +94,15 @@ const ContactUs = () => {
         >
           <p className="cf">
             <label>Your Name:</label>
-            <input className="user-input" type="text" name="name" />
+            <input className="user-input" type="text" name="name" required/>
           </p>
           <p className="cf">
             <label>Your Email:</label>
-            <input className="user-input" type="email" name="email" />
+            <input className="user-email" type="email" name="email" required/>
           </p>
           <p className="cf">
             <label>Message:</label>
-            <textarea className="user-input" name="message" rows={7}></textarea>
+            <textarea className="user-message" name="message" rows={7} required></textarea>
           </p>
           <p className="cf">
             <Button
