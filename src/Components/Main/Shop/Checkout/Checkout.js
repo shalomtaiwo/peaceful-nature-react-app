@@ -144,6 +144,9 @@ export default function Checkout() {
       displayPaystack.style.display = "block";
     }
   }
+  function shopping() {
+    navigate('/shop')
+  }
   if (isEmpty)
     return (
       <div className="empty-item">
@@ -152,11 +155,12 @@ export default function Checkout() {
           <Skeleton animation="wave" />
           <Skeleton animation={false} />
         </Box>
-        <h1 className="empty-cart">
+        <h3 className="empty-cart">
           There are no products to pay for.
           <br />
           Add some items to your cart
-        </h1>
+        </h3>
+        <Button variant="outlined" color="success" onClick={shopping}>Continue shopping</Button>
       </div>
     );
   if (!user)

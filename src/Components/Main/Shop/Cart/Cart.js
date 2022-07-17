@@ -5,7 +5,8 @@ import Button from "@mui/material/Button";
 import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
 import alertify from "alertifyjs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 const Cart = () => {
   const {
@@ -28,6 +29,11 @@ const Cart = () => {
     alertify.error(message, 2);
   }
 
+  let navigate = useNavigate();
+  function shopping() {
+    navigate('/shop')
+  }
+
   if (isEmpty)
     return (
       <div className="empty-item">
@@ -36,7 +42,8 @@ const Cart = () => {
           <Skeleton animation="wave" />
           <Skeleton animation={false} />
         </Box>
-        <h1 className="empty-cart">Your Cart is Empty</h1>
+        <h3 className="empty-cart">Your Cart is Empty</h3>
+        <Button variant="outlined" color="success" onClick={shopping}>Continue shopping</Button>
       </div>
     );
 

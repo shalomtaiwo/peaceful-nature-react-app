@@ -65,6 +65,10 @@
   }
   .PayStack-icon {
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
   }
   .PayStack-icon img {
     height: 70px;
