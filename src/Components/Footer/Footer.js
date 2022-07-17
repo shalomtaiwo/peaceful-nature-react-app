@@ -49,7 +49,7 @@ const Footer = () => {
       }),
     };
 
-    fetch("https://api.sendinblue.com/v3/contacts", options)
+    fetch(process.env.REACT_APP_SENDINBLUE_API, options)
       .then((response) => response.json())
       .then((response) => console.log(response))
       .catch((err) => console.error(err));
