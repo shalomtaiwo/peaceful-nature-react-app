@@ -2,7 +2,6 @@ import React from "react";
 import "./About.css";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
-import { Home } from "@mui/icons-material";
 
 const About = () => {
   let navigate = useNavigate();
