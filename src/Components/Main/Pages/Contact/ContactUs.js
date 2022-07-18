@@ -8,7 +8,6 @@ import Avatar from "@mui/material/Avatar";
 import EmailTwoToneIcon from "@mui/icons-material/EmailTwoTone";
 import PlaceTwoToneIcon from "@mui/icons-material/PlaceTwoTone";
 import FacebookTwoToneIcon from "@mui/icons-material/FacebookTwoTone";
-import { Box } from "@mui/material";
 import { PopupButton } from "@typeform/embed-react";
 
 const ContactUs = () => {
@@ -66,24 +65,6 @@ const ContactUs = () => {
         </div>
       </div>
       <div className="contactForm">
-        <Box
-          sx={{
-            width: "100%",
-            maxWidth: "100%",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <Box
-            sx={{
-              width: "60%",
-              maxWidth: "100%",
-              display: "grid",
-              gridTemplateColumns: { md: "1fr" },
-              gap: 2,
-            }}
-            className="myinput"
-          >
             <PopupButton
               id="PveibE2H"
               style={{ fontSize: 20 }}
@@ -91,8 +72,7 @@ const ContactUs = () => {
             >
               Click to send message
             </PopupButton>
-          </Box>
-        </Box>
+
       </div>
     </div>
   );
