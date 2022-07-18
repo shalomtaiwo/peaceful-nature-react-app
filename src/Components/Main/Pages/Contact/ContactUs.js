@@ -1,4 +1,4 @@
-import React, {  useRef } from "react";
+import React from "react";
 import "./ContactUs.css";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -8,24 +8,10 @@ import Avatar from "@mui/material/Avatar";
 import EmailTwoToneIcon from "@mui/icons-material/EmailTwoTone";
 import PlaceTwoToneIcon from "@mui/icons-material/PlaceTwoTone";
 import FacebookTwoToneIcon from "@mui/icons-material/FacebookTwoTone";
-import { Button, Box, TextField } from "@mui/material";
-import emailjs from "@emailjs/browser";
-
+import { Box } from "@mui/material";
+import { PopupButton } from "@typeform/embed-react";
 
 const ContactUs = () => {
-
-  const form = useRef();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    emailjs
-          .sendForm(
-            process.env.REACT_APP_EMAILJS_SERVICE,
-            process.env.REACT_APP_EMAILJS_TEMPLATE_FORM,
-            form.current,
-            process.env.REACT_APP_EMAILJS_API
-          )
-  };
-
   return (
     <div>
       <div className="contactHeader"></div>
@@ -80,68 +66,33 @@ const ContactUs = () => {
         </div>
       </div>
       <div className="contactForm">
-        <form
-          POST="https://api.emailjs.com/api/v1.0/email/send"
-          ref={form}
-          onSubmit={handleSubmit}
+        <Box
+          sx={{
+            width: "100%",
+            maxWidth: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
         >
           <Box
             sx={{
-              width: "100%",
+              width: "60%",
               maxWidth: "100%",
-              display: "flex",
-              justifyContent: "center",
+              display: "grid",
+              gridTemplateColumns: { md: "1fr" },
+              gap: 2,
             }}
+            className="myinput"
           >
-            <Box
-              sx={{
-                width: "100%",
-                maxWidth: "100%",
-                display: "grid",
-                gridTemplateColumns: { md: "1fr" },
-                gap: 2,
-              }}
-              className="myinput"
+            <PopupButton
+              id="PveibE2H"
+              style={{ fontSize: 20 }}
+              className="my-button"
             >
-              <TextField
-                required
-                fullWidth
-                type="text"
-                label="Full name"
-                id="fullname"
-                name="from_fullname"
-              />
-
-              <TextField
-                label="Email"
-                name="from_useremail"
-                required
-                fullWidth
-                color="success"
-                type="email"
-              />
-
-              <TextField
-                label="Message"
-                name="from_usermessage"
-                required
-                fullWidth
-                color="warning"
-                type="text"
-                multiline
-                rows={5}
-              />
-              <Button
-                variant="outlined"
-                color="success"
-                type="submit"
-                onClick={0}
-              >
-                Send message
-              </Button>
-            </Box>
+              Click to send message
+            </PopupButton>
           </Box>
-        </form>
+        </Box>
       </div>
     </div>
   );
