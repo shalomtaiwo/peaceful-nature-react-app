@@ -1,8 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { useState } from "react";
 import { useCart } from "react-use-cart";
 import { PaystackButton } from "react-paystack";
 import { addDoc, collection } from "firebase/firestore";

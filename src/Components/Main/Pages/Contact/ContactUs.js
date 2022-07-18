@@ -1,4 +1,4 @@
-import React from "react";
+import React, {  useRef } from "react";
 import "./ContactUs.css";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -8,26 +8,22 @@ import Avatar from "@mui/material/Avatar";
 import EmailTwoToneIcon from "@mui/icons-material/EmailTwoTone";
 import PlaceTwoToneIcon from "@mui/icons-material/PlaceTwoTone";
 import FacebookTwoToneIcon from "@mui/icons-material/FacebookTwoTone";
-import { Button } from "@mui/material";
+import { Button, Box, TextField } from "@mui/material";
+import emailjs from "@emailjs/browser";
+
 
 const ContactUs = () => {
 
+  const form = useRef();
   const handleSubmit = (e) => {
     e.preventDefault();
-    let myForm = document.getElementById("userMessage");
-    let formData = new FormData(myForm);
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(formData).toString(),
-    })
-      .then(() => {
-        alert("Form successfully submitted")
-        document.querySelector('.user-input').value = '';
-        document.querySelector('.user-email').value = '';
-        document.querySelector('.user-message').value = '';
-      })
-      .catch((error) => alert(error));
+    emailjs
+          .sendForm(
+            process.env.REACT_APP_EMAILJS_SERVICE,
+            process.env.REACT_APP_EMAILJS_TEMPLATE_FORM,
+            form.current,
+            process.env.REACT_APP_EMAILJS_API
+          )
   };
 
   return (
@@ -85,35 +81,66 @@ const ContactUs = () => {
       </div>
       <div className="contactForm">
         <form
+          POST="https://api.emailjs.com/api/v1.0/email/send"
+          ref={form}
           onSubmit={handleSubmit}
-          id="userMessage"
-          name="contact"
-          method="POST"
-          data-netlify="true"
-          netlify
         >
-          <p className="cf">
-            <label>Your Name:</label>
-            <input className="user-input" type="text" name="name" required/>
-          </p>
-          <p className="cf">
-            <label>Your Email:</label>
-            <input className="user-email" type="email" name="email" required/>
-          </p>
-          <p className="cf">
-            <label>Message:</label>
-            <textarea className="user-message" name="message" rows={7} required></textarea>
-          </p>
-          <p className="cf">
-            <Button
-              type="submit"
-              color="success"
-              variant="contained"
-              size="medium"
+          <Box
+            sx={{
+              width: "100%",
+              maxWidth: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Box
+              sx={{
+                width: "100%",
+                maxWidth: "100%",
+                display: "grid",
+                gridTemplateColumns: { md: "1fr" },
+                gap: 2,
+              }}
+              className="myinput"
             >
-              Send Message
-            </Button>
-          </p>
+              <TextField
+                required
+                fullWidth
+                type="text"
+                label="Full name"
+                id="fullname"
+                name="from_fullname"
+              />
+
+              <TextField
+                label="Email"
+                name="from_useremail"
+                required
+                fullWidth
+                color="success"
+                type="email"
+              />
+
+              <TextField
+                label="Message"
+                name="from_usermessage"
+                required
+                fullWidth
+                color="warning"
+                type="text"
+                multiline
+                rows={5}
+              />
+              <Button
+                variant="outlined"
+                color="success"
+                type="submit"
+                onClick={0}
+              >
+                Send message
+              </Button>
+            </Box>
+          </Box>
         </form>
       </div>
     </div>

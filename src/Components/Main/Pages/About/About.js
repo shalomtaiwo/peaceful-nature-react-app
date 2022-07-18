@@ -2,17 +2,21 @@ import React from "react";
 import "./About.css";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
+import { Home } from "@mui/icons-material";
 
 const About = () => {
   let navigate = useNavigate();
 
+  function home() {
+    navigate("/");
+  }
   function shop() {
     navigate("/shop");
   }
   return (
     <div className="About">
       <div className="about-banner">
-        <span className="linkItem" onClick={shop}>
+        <span className="linkItem" onClick={home}>
           Home/
         </span>
         <span>About Us</span>

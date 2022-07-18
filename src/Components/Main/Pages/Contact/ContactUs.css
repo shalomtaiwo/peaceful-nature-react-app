@@ -47,10 +47,14 @@
   padding: 10px;
   resize: none;
   font-weight: lighter;
-  font-style: italic;
+  font-style: italic; 
   font-size: 18px;
 }
-
+.myinput{
+  background-color: rgba(255, 255, 255, 0.925);
+  padding: 15px;
+  border-radius: 10px;
+}
 @media only screen and (max-width: 700px) {
   .contactBody {
     flex-direction: column-reverse;
