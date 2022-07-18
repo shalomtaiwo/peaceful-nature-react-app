@@ -40,6 +40,10 @@ export default function Checkout() {
   const email = user ? user.email : "example@example.com";
   const fullName = user ? user.displayName : "example";
 
+  function login() {
+    navigate("/account");
+  }
+
   const createOrder = async () => {
     await addDoc(orderCollectionRef, {
       userID: user.uid,
@@ -144,12 +148,14 @@ export default function Checkout() {
     }
   }
   function shopping() {
-    navigate('/shop')
+    navigate("/shop");
   }
   if (isEmpty)
     return (
       <div className="empty-item">
-        <Button variant="outlined" color="success" onClick={shopping}>Continue shopping</Button>
+        <Button variant="outlined" color="success" onClick={shopping}>
+          Continue shopping
+        </Button>
         <Box sx={{ width: "80%" }}>
           <Skeleton />
           <Skeleton animation="wave" />
@@ -165,7 +171,12 @@ export default function Checkout() {
   if (!user)
     return (
       <Box sx={{ height: "50vh" }}>
-        <div>Please login to check out</div>
+        <h3>
+          <b>Please login to checkout</b>
+        </h3>
+        <Button variant="outlined" color="success" onClick={login}>
+          Login Here
+        </Button>
       </Box>
     );
   return (

@@ -22,12 +22,15 @@ const HomePage = () => {
   return (
     <div className="Home">
       <div className="landingBanner">
-        <div className="lbCol1">
-          <h3>Moringa is a miracle plant</h3>
-          <p>
-            It's said to have many health benefits, including blood purification
-            and cancer prevention.{" "}
-          </p>
+        <div className="banner">
+          <div className="lbCol1">
+            <p>Moringa</p>
+            <p>Miracle plant</p>
+            <p>
+              It's said to have many health benefits, including blood
+              purification and cancer prevention.
+            </p>
+          </div>
         </div>
         <div className="lbCol2"></div>
       </div>

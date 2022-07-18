@@ -1,28 +1,46 @@
 /* Header banner styling */
 .landingBanner {
-  background-image: url("./Assets/LandingBanner.png");
+  background-image: url("./Assets/Natural.png");
   background-repeat: no-repeat;
   background-size: cover;
   height: 480px;
   display: flex;
 }
-.lbCol1 {
-  width: 60%;
+.banner {
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.807);
+}
+.lbCol1 {
+  width: 40%;
   margin: 0 50px;
-  flex-direction: column;
-  text-align: center;
+  text-align: left;
 }
-.lbCol1 h3 {
-  color: rgb(236, 233, 233);
+.lbCol1 p:first-child {
+  color: rgb(14, 13, 13);
   padding: 0 30px;
+  font-size: 40px;
+  letter-spacing: 4px;
+  font-weight: 100;
+  margin: 0 0 -15px 0;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
-.lbCol1 p {
-  color: white;
+.lbCol1 p:nth-child(2) {
+  color: rgb(14, 13, 13);
   padding: 0 30px;
+  font-size: 50px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  margin: 0;
+}
+.lbCol1 p:last-child {
+  color: rgb(14, 13, 13);
+  padding: 0 30px;
+  font-size: 18px;
+  letter-spacing: 2px;
+  word-wrap: break-word;
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 /* End of banner styling */
 
@@ -69,7 +87,7 @@
   height: 270px;
   width: 150px;
 }
-.ftsub-center{
+.ftsub-center {
   text-align: center;
 }
 .ftsub {
@@ -141,6 +159,11 @@
 }
 
 /* Responsive styling */
+@media only screen and (max-width: 1011px) {
+  .lbCol1 {
+    width: 70%;
+  }
+}
 @media only screen and (max-width: 947px) {
   .ctaborder {
     padding: 30px;
@@ -182,14 +205,10 @@
 @media only screen and (max-width: 700px) {
   .lbCol1 {
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.685);
     margin: 20px 10px;
   }
   .landingBanner {
-    background-image: url("./Assets/LandingBanner.png");
+    background-image: url("./Assets/Natural.png");
     background-repeat: no-repeat;
     background-size: cover;
     height: 380px;
@@ -277,5 +296,41 @@
   .terms {
     text-align: justify;
     padding: 10px 20px;
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  .lbCol1 {
+    width: 100%;
+    margin: 0 15px;
+  }
+  .lbCol1 p:first-child {
+    padding: 0 30px;
+    font-size: 30px;
+  }
+  .lbCol1 p:nth-child(2) {
+    padding: 0 30px;
+    font-size: 40px;
+  }
+}
+@media only screen and (max-width: 373px) {
+  .lbCol1 {
+    width: 100%;
+    margin: 0 10px;
+    text-align: left;
+  }
+  .lbCol1 p:first-child {
+    padding: 0 10px;
+    font-size: 25px;
+    letter-spacing: 4px;
+  }
+  .lbCol1 p:nth-child(2) {
+    padding: 0 10px;
+    font-size: 30px;
+  }
+  .lbCol1 p:last-child {
+    padding: 0 10px;
+    font-size: 18px;
+    letter-spacing: 2px;
   }
 }
