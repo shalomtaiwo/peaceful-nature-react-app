@@ -51,7 +51,7 @@ export default function Checkout() {
       Phone: phone,
       products: items,
       OrderDate: Date(),
-      Total: cartTotal,
+      Total: cartTotal + 60,
     })
       .then(function (res) {
         emailjs
