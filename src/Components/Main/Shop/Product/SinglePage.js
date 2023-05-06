@@ -2,69 +2,27 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import Data from "./Data";
 import {
-  Button,
-  Box,
-  Avatar,
   Breadcrumbs,
   Link,
-  List,
-  Divider,
-  Tab,
-  Tabs,
-  ListItem,
   Typography,
-  ListItemAvatar,
-  ListItemText,
 } from "@mui/material";
 import { useCart } from "react-use-cart";
 import alertify from "alertifyjs";
-import PropTypes from "prop-types";
-import Comments from "./Comments";
+//import Comments from "./Comments";
 import Error from "../../../../Error";
+import { Space, Tabs, Text, Title, NumberInput, Group, ActionIcon, Button, Divider } from '@mantine/core';
+import { IconMinus, IconPlus } from "@tabler/icons-react";
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
 
 const SinglePage = () => {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(1);
+  const handlers = React.useRef();
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+
   const { addItem } = useCart();
 
-  function addToCart(item) {
-    addItem(item);
+  function addToCart(item, quantity) {
+    addItem(item, quantity);
   }
   function successNotifier(message) {
     alertify.set("notifier", "position", "top-center");
@@ -81,7 +39,9 @@ const SinglePage = () => {
       </div>
     );
 
-  const { img, title, price, desc, reviews } = product;
+  const { img, title, price, desc,
+    //reviews 
+  } = product;
 
   return (
     <div className="singleProduct">
@@ -101,73 +61,63 @@ const SinglePage = () => {
           <img srcSet={img} alt={title} />
         </div>
         <div className="singleDetails">
-          <div className="singlePrice">
-            <h4>{title}</h4>
-            <h5>R{price}</h5>
+          <Tabs color="green" defaultValue="description">
+            <Title>{title}</Title>
+            <Space h="xl" />
+            <Tabs.List>
+              <Tabs.Tab value="description">Description</Tabs.Tab>
+            </Tabs.List>
+
+            <Tabs.Panel value="description">
+              <Space h="xl" />
+              <Text>{desc}</Text>
+            </Tabs.Panel>
+          </Tabs>
+          <Space h="xl" />
+          <Group spacing={5}>
+            <ActionIcon size={35} disabled={value === 1} variant="light" color={"lime"} onClick={() => handlers.current.decrement()}>
+              <IconMinus />
+            </ActionIcon>
+
+            <NumberInput
+              hideControls
+              value={value}
+              onChange={(val) => setValue(val)}
+              handlersRef={handlers}
+              max={24}
+              min={0}
+              step={1}
+              styles={{ input: { width: "60px", textAlign: 'center' } }}
+            />
+
+            <ActionIcon size={35} variant="light" color={"green"} onClick={() => handlers.current.increment()}>
+              <IconPlus />
+            </ActionIcon>
+          </Group>
+          <div>
+
           </div>
+          <Space h="xl" />
+          <Divider />
           <div className="singleCart">
+            <div className="singlePrice">
+              <h2>R{price}</h2>
+            </div>
             <Button
               variant="outlined"
-              size="medium"
-              color="success"
+              color="green"
               onClick={() => {
-                addToCart(product);
-                successNotifier(title + " added to Cart");
+                addToCart(product, value);
+                value > 0 && successNotifier(title + " added to Cart");
               }}
             >
               Add to Cart
             </Button>
           </div>
+          <Divider />
+          <Space h="xl" />
         </div>
       </div>
-      <Box sx={{ width: "100%" }} variant="div">
-        <Box variant="div" sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs
-            variant="div"
-            value={value}
-            onChange={handleChange}
-            aria-label="basic tabs example"
-          >
-            <Tab variant="div" label="Description" {...a11yProps(0)} />
-            <Tab
-              variant="div"
-              label={`Reviews ${reviews.length}`}
-              {...a11yProps(1)}
-            />
-          </Tabs>
-        </Box>
-        <TabPanel value={value} index={0} variant="div">
-          {desc}
-        </TabPanel>
-        <TabPanel value={value} index={1} variant="div">
-          <Comments />
-          {reviews
-            .map((rating, index) => {
-              return (
-                <List
-                  key={index}
-                  sx={{ width: "100%", bgcolor: "background.paper" }}
-                >
-                  <ListItem alignItems="flex-start">
-                    <ListItemAvatar>
-                      <Avatar sx={{ bgcolor: "black" }} alt={rating.user}>
-                        {rating.user.charAt(0)}
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={rating.user}
-                      secondary={
-                        <React.Fragment>{rating.review}</React.Fragment>
-                      }
-                    />
-                  </ListItem>
-                  <Divider variant="inset" component="li" />
-                </List>
-              );
-            })
-            .reverse()}
-        </TabPanel>
-      </Box>
     </div>
   );
 };

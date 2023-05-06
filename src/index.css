@@ -17,20 +17,7 @@ code {
   text-decoration: none !important;
   color: black;
 }
-.errorPage {
-  height: 70vh;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
 
-@media only screen and (max-width: 900px) {
-  body {
-    padding-bottom: 60px;
-  }
-  .errorPage {
-    height: 50vh;
-  }
+.mantine-bsiqi3{
+  z-index: 999999999 !important;
 }

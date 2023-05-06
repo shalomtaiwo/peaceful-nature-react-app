@@ -1,14 +1,32 @@
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
 .loginPage {
   padding: 40px 30px 100px 30px;
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.authPage {
+  width: 600px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.accountPage {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 .loggedOutPage {
   width: 100%;
   display: flex;
   justify-content: center;
   align-content: center;
 }
+
 .register,
 .login {
   padding: 30px 10px;
@@ -17,42 +35,86 @@
   -o-transition: all 2s ease;
   transition: all 2s ease;
 }
+
 .login h2,
 .register h2 {
   padding-bottom: 30px;
 }
+
 .register {
   display: none;
 }
+
 .existingAccount {
   padding: 20px;
 }
+
 .noAccount {
   padding: 8px;
 }
+
 .currentLoggedInUser {
   display: flex;
   justify-content: space-between;
   padding: 20px;
   height: 50vh;
 }
+
 .loggedInDetails {
   text-align: left;
 }
+
 .loggedInDetails h4 {
   padding-bottom: 40px;
 }
+
 .Userlogout {
   cursor: pointer;
   color: red;
   font-weight: bold;
 }
+
 @media only screen and (max-width: 550px) {
   .currentLoggedInUser {
     padding: 20px;
     flex-direction: column;
   }
+
   .loggedInDetails {
     text-align: center;
   }
+}
+
+.filter_list{
+  border-top-left-radius: 8px !important;
+  border-top-right-radius: 8px !important;
+  border: 1px solid #e6e6e6;
+  display: flex;
+  justify-content: end;
+}
+
+.order_list{
+  border-top-left-radius: 8px !important;
+  border-top-right-radius: 8px !important;
+  border-left: 1px solid #e6e6e6;
+  border-right: 1px solid #e6e6e6;
+  border-top: 1px solid #e6e6e6;
+  border-bottom: 0px !important;
+}
+.order_list:hover{
+  background-color: #f6f6f6;
+  cursor: pointer;
+}
+.image-gallery-right-nav, .image-gallery-left-nav{
+  padding: 0px !important;
+}
+svg.image-gallery-svg{
+  height: 30px !important;
+  width: 30px !important;
+}
+.mantine-1q8iun6 tbody tr td{
+  padding: 20px 10px !important;
+}
+.mantine-ot7oof{
+  padding: 0px !important;
 }

@@ -6,6 +6,7 @@
   background-color: whitesmoke;
   padding: 30px 0;
 }
+
 .contactDetails {
   text-align: left;
   padding-left: 90px;
@@ -14,9 +15,9 @@
 .contactMap {
   width: 50%;
   height: 450px;
-  border: 1px green solid;
   padding: 10px 0 10px 10px;
 }
+
 .contactForm {
   background-color: black;
   color: white;
@@ -26,15 +27,23 @@
   justify-content: center;
   align-content: center;
 }
+
+.contactForm .mantine-TextInput-label,
+.contactForm .mantine-Textarea-label {
+  color: white;
+}
+
 .contactForm form {
   width: 50%;
 }
+
 .cf {
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: left;
 }
+
 .cf input {
   height: 45px;
 }
@@ -47,30 +56,35 @@
   padding: 10px;
   resize: none;
   font-weight: lighter;
-  font-style: italic; 
+  font-style: italic;
   font-size: 18px;
 }
-.myinput{
+
+.myinput {
   background-color: rgba(255, 255, 255, 0.925);
   padding: 15px;
   border-radius: 10px;
 }
+
 @media only screen and (max-width: 700px) {
   .contactBody {
-    flex-direction: column-reverse;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
+
   .contactMap {
     width: 90%;
     height: 300px;
     padding: 10px;
     margin-bottom: 40px;
   }
+
   .contactDetails {
     text-align: center;
     padding-left: 0;
   }
+
   .contactForm form {
     width: 75%;
   }

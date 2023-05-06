@@ -1,7 +1,6 @@
 import React from "react";
 import "./HomePage.css";
 import review from "./Assets/customer.png";
-import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import col1 from "./Assets/col1.png";
 import col2 from "./Assets/col2.png";
@@ -12,6 +11,7 @@ import col1_2 from "./Assets/col1-2.png";
 import col2_2 from "./Assets/col2-2.png";
 import col3_2 from "./Assets/col3-1.png";
 import col4_2 from "./Assets/col4-1.png";
+import { Button, Divider, Space, Text, Title } from "@mantine/core";
 
 const HomePage = () => {
   let navigate = useNavigate();
@@ -37,14 +37,15 @@ const HomePage = () => {
       <div className="homeHeading">
         <div className="hh-left-col"></div>
         <div className="hh-right-col">
-          <h4>High in Vitamins</h4>
-          <p>
+          <h3>High in Vitamins</h3>
+          <Text>
             Research on Moringa is still being done, but it's been used for
             centuries in many countries. Moringa's benefits are said to come
             from its high levels of vitamins A, C, E, calcium, iron, zinc, and
             magnesium.
-          </p>
-          <Button variant="contained" color="success" onClick={shop}>
+          </Text>
+          <Space h="xl" />
+          <Button variant="contained" color="green" onClick={shop}>
             Shop now
           </Button>
         </div>
@@ -52,11 +53,16 @@ const HomePage = () => {
       <div className="features">
         <div className="ft-heading">
           <div className="ftsub-center">
-            <h4 className="fthead">BENEFITS</h4>
-            <p className="ftbody">
+            <Title className="fthead">BENEFITS</Title>
+            <Space h="xl" />
+            <Divider my={"sm"} />
+            <Space h="xl" />
+            <Text className="ftbody">
               We're committed to providing the best quality, eco-friendly
               products that are healthy for you and the environment.
-            </p>
+            </Text>
+            <Space h="xl" />
+
           </div>
         </div>
         <div className="featurePoints">
@@ -106,14 +112,14 @@ const HomePage = () => {
       <div className="Homecta">
         <div className="ctaborder">
           <div className="ctatext">
-            <h4>Check out our discounts!</h4>
+            <Title>Check out our discounts!</Title>
             <p>
               Buy our moringa Capsules in bundles of 2 and 4 <br />
               at a discount price
             </p>
           </div>
           <div className="ctabutton">
-            <Button variant="contained" color="success" onClick={shop}>
+            <Button variant="filled" color="green" onClick={shop}>
               Shop now
             </Button>
           </div>

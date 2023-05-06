@@ -1,23 +1,128 @@
-.subTotal {
+.totalFlex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.section_checkout {
   padding: 25px;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  border-radius: 5px;
+  margin-top: 30px;
+  border: 1px solid rgb(209, 209, 209);
+}
+
+.totalSection {
+  width: 62%;
+}
+
+.delivery {
+  padding: 25px;
+  border-radius: 5px;
+  border: 1px solid rgb(209, 209, 209);
+}
+
+.subTotal {
+  padding: 10px 20px;
+  width: 100%;
+}
+
+.reviewTotal {
+  padding: 20px;
+  width: 38%;
+}
+
+.addressTotal {
+  padding: 20px;
+  width: 55%;
+}
+
+.addressFlex {
+  width: 100%;
 }
 
 .checkoutState {
   height: 100%;
-  padding: 30px 0 70px 0;
+  padding: 30px 0;
 }
+
 .justCheckoutBox {
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
   padding: 40px;
 }
+
 .checkoutText {
   padding-bottom: 30px;
 }
+
 .checkoutflex {
   display: flex;
   justify-content: space-between;
-  padding-bottom: 25px;
+}
+
+.checkoutflex div {
+  padding: 10px 0;
+}
+
+
+.paywith {
+  padding-left: 5px;
+}
+
+.delivery_choice {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mantine-Radio-labelWrapper {
+  width: 100% !important;
+}
+
+.mantine-Radio-root {
+  border: 1px solid green !important;
+  padding: 10px !important;
+  border-radius: 5px;
+}
+
+
+
+@media (max-width: 900.98px) {
+  .flexAddress {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between;
+  }
+.totalSection{
+  width: 50%;
+}
+.reviewTotal{
+  width: 50%;
+}
+  .delivery {
+    width: 100%;
+  }
+
+  .addressTotal {
+    width: 100%;
+  }
+}
+
+@media (max-width: 700.98px) {
+  .totalFlex {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .totalSection{
+    width: 100%;
+  }
+
+  .subTotal {
+    padding: 20px;
+    width: 100%;
+  }
+
+  .reviewTotal {
+    padding: 5px;
+    width: 100%;
+  }
 }

@@ -1,27 +1,20 @@
 import React from "react";
 import "./About.css";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import { AboutUsBanner } from "./AboutUsBanner";
+import { FaqWithBg } from "./Faq";
+import { AboutMoringa } from "./AboutMoringa";
+import { Space } from "@mantine/core";
 
 const About = () => {
   let navigate = useNavigate();
-
-  function home() {
-    navigate("/");
-  }
   function shop() {
     navigate("/shop");
   }
   return (
     <div className="About">
-      <div className="about-banner">
-        <span className="linkItem" onClick={home}>
-          Home/
-        </span>
-        <span>About Us</span>
-      </div>
+      <AboutUsBanner />
       <div className="about-moringa">
-        <h2 className="p-title">About Moringa Oliefera</h2>
         <p>
           Moringa is a natural, powerful plant that has been used for centuries
           to help with many health issues. The leaves of the Moringa tree, which
@@ -43,6 +36,9 @@ const About = () => {
           those who are looking for an all-natural way to restore energy, fight
           pain, and prevent disease, our products are a great choice.
         </p>
+      </div>
+      <AboutMoringa goTo={shop} />
+      <div className="about-moringa">
         <p>
           Moringa is a miracle plant with many uses. This is just the start!
           It's said to have many health benefits, including blood purification
@@ -61,11 +57,9 @@ const About = () => {
           Moringa is an extremely affordable, natural way to get your daily dose
           of vitamins and minerals.
         </p>
-        <div className="try-now">
-          <h1>Try some Moringa today!</h1>
-          <Button variant="contained" color="success" onClick={shop}>
-            Shop now
-          </Button>
+        <Space h="xl" />
+        <div id="faq">
+          <FaqWithBg />
         </div>
       </div>
     </div>

@@ -1,53 +1,54 @@
 import React from "react";
-import { Login } from "./UserState/Login";
-import { useState } from "react";
+import { AuthenticationForm } from "./UserState/Login";
 import { auth } from "../../../../Firebase-config";
-import { onAuthStateChanged } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 import Logout from "./UserState/Logout";
-import { Breadcrumbs, Link, Typography } from "@mui/material";
+import { Loader, Center } from "@mantine/core";
+import "./UserState/Login.css";
+import { Outlet } from "react-router-dom";
+import { Dashboard } from "./UserState/Dashboard";
+
 const Account = () => {
-  const [user, setUser] = useState({});
+	const [user, loading] = useAuthState(auth);
 
-  React.useEffect(() => {
-    const loginPage = document.querySelector(".loginUser");
-    const AccountPage = document.querySelector(".logoutUser");
-    function logOutPage() {
-      AccountPage.style.display = "none";
-      loginPage.style.display = "block";
-    }
-    function logInPage() {
-      loginPage.style.display = "none";
-      AccountPage.style.display = "block";
-    }
+	if (loading) {
+		return (
+			<div className="UserState">
+				<Center style={{ width: "100vw", height: 400 }}>
+					<Loader
+						color="lime"
+						variant="dots"
+					/>
+				</Center>
+			</div>
+		);
+	}
 
-    onAuthStateChanged(auth, (currentUser) => setUser(currentUser));
-    if (user) {
-      logInPage();
-    } else {
-      logOutPage();
-    }
-    // Notice the empty dependency array, there to make sure the effect is only run once when the component mounts
-  }, [user]);
+	if (user) {
+		return (
+			<div className="UserState">
+				<Dashboard>
+						<Outlet />
+				</Dashboard>
+			</div>
+		);
+	}
 
-  return (
-    <div className="UserState">
-      <div role="presentation" className="breadCrumbs">
-        <h2>My Account</h2>
-        <Breadcrumbs aria-label="breadcrumb">
-          <Link underline="hover" color="inherit" href="/">
-            Home
-          </Link>
-          <Typography color="text.primary">Account</Typography>
-        </Breadcrumbs>
-      </div>
-      <div className="loginUser">
-        <Login />
-      </div>
-      <div className="logoutUser">
-        <Logout />
-      </div>
-    </div>
-  );
+	return (
+		<div className="UserState">
+			<div
+				role="presentation"
+				className="breadCrumbs"
+			>
+				<h2>My Account</h2>
+				<div className="loginPage">
+					<div className="authPage">
+						<AuthenticationForm />
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default Account;

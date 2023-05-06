@@ -1,131 +1,215 @@
-import React, { useState } from "react";
-import "./Footer.css";
+import { createStyles, Text, Container,  Group } from '@mantine/core';
+import Logo from '../Header/Navbar/Assets/logo.png';
+import { useNavigate } from 'react-router-dom';
+import { Subscription } from './Subscribe';
 import Secured from "./Assets/secured-by-paystack.webp";
-import {
-  Button,
-  Box,
-  TextField,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from "@mui/material";
-import { Link } from "react-router-dom";
 
-const Footer = () => {
-  const [open, setOpen] = useState(false);
+const useStyles = createStyles((theme) => ({
+  footer: {
+    marginTop: 0,
+    paddingTop: theme.spacing.xl * 2,
+    paddingBottom: theme.spacing.xl * 2,
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+    borderTop: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
+      }`,
+  },
 
-  const [subsEmail, setSubscribe] = useState("");
+  logo: {
+    maxWidth: 200,
 
-  const userEmail = subsEmail;
+    [theme.fn.smallerThan('sm')]: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+  },
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  description: {
+    marginTop: 5,
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+    [theme.fn.smallerThan('sm')]: {
+      marginTop: theme.spacing.xs,
+      textAlign: 'center',
+    },
+  },
 
-  const handleSubscribe = (e) => {
-    setOpen(false);
-    e.preventDefault();
-    const options = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "api-key": process.env.REACT_APP_SENDINBLUE_KEY,
+  inner: {
+    display: 'flex',
+    justifyContent: 'space-between',
+
+    [theme.fn.smallerThan('sm')]: {
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+  },
+
+  groups: {
+    display: 'flex',
+    flexWrap: 'wrap',
+
+    [theme.fn.smallerThan('sm')]: {
+      display: 'none',
+    },
+  },
+  groupsSM: {
+    display: 'none',
+
+    [theme.fn.smallerThan('sm')]: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      paddingTop: '20px'
+    },
+  },
+  wrapper: {
+    width: 160,
+  },
+
+  link: {
+    display: 'block',
+    color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[6],
+    fontSize: theme.fontSizes.sm,
+    paddingTop: 3,
+    paddingBottom: 3,
+
+    '&:hover': {
+      textDecoration: 'underline',
+    },
+  },
+
+  title: {
+    fontSize: theme.fontSizes.lg,
+    fontWeight: 700,
+    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+    marginBottom: theme.spacing.xs / 2,
+    color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+  },
+
+  afterFooter: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: theme.spacing.xl,
+    paddingTop: theme.spacing.xl,
+    paddingBottom: theme.spacing.xl,
+    borderTop: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
+      }`,
+
+    [theme.fn.smallerThan('sm')]: {
+      flexDirection: 'column',
+    },
+  },
+
+  social: {
+    [theme.fn.smallerThan('sm')]: {
+      marginTop: theme.spacing.xs,
+    },
+  },
+}));
+
+const data = [
+  {
+    "title": "General",
+    "links": [
+      {
+        "label": "Home",
+        "link": "/"
       },
-      body: JSON.stringify({
-        email: userEmail,
-        attributes: { FNAME: "", LNAME: "" },
-        emailBlacklisted: false,
-        smsBlacklisted: false,
-        listIds: [36],
-        updateEnabled: false,
-        smtpBlacklistSender: ["user@example.com"],
-      }),
-    };
+      {
+        "label": "About",
+        "link": "about"
+      },
+      {
+        "label": "Shop",
+        "link": "shop"
+      },
+      {
+        "label": "Account",
+        "link": "account"
+      }
+    ]
+  },
+  {
+    "title": "Other",
+    "links": [
+      {
+        "label": "Privacy Policy",
+        "link": "privacypolicy"
+      },
+      {
+        "label": "T & C",
+        "link": "tc"
+      },
+      {
+        "label": "Contact Us",
+        "link": "contact"
+      },
+      {
+        "label": "Cart",
+        "link": "cart"
+      }
+    ]
+  }
+]
 
-    fetch(process.env.REACT_APP_SENDINBLUE_API, options)
-      .then((response) => response.json())
-      .then((response) => console.log(response))
-      .catch((err) => console.error(err));
-  };
+
+export function Footer() {
+  const { classes } = useStyles();
+  let navigate = useNavigate()
+
+  const groups = data.map((group) => {
+    const links = group.links.map((link, index) => (
+      <Text
+        key={index}
+        className={classes.link}
+        component="a"
+        onClick={() => navigate(link.link)}
+        style={{
+          cursor: 'pointer'
+        }}
+      >
+        {link.label}
+      </Text>
+    ));
+
+    return (
+      <div className={classes.wrapper} key={group.title}>
+        <Text className={classes.title}>{group.title}</Text>
+        {links}
+      </div>
+    );
+  });
 
   return (
-    <div className="Footer">
-      <div className="footer">
-        <div className="footer-menu">
-          <Link to="/">
-            <span>Home</span>
-          </Link>
-          <Link to="/about">
-            <span>About</span>
-          </Link>
-          <Link to="account">
-            <span>Account</span>
-          </Link>
-          <Link to="/contact">
-            <span>Contact</span>
-          </Link>
+    <footer className={classes.footer}>
+      <Container className={classes.inner}>
+        <div className={classes.logo}>
+          <img src={Logo} alt="Logo" width={60} />
+          <Text size="xs" color="dimmed" className={classes.description}>
+            We offer a wide range of products for every use - natural and
+            organic living essentials.
+          </Text>
         </div>
-        <Box
-          className="boxsubs"
-          sx={{
-            width: { md: "30%" },
-            maxWidth: "100%",
-            display: "grid",
-            gridTemplateColumns: { md: "1fr" },
-            gap: 2,
-          }}
-        >
-          <Button variant="outlined" color="success" onClick={handleClickOpen}>
-            Subscribe to Newsletter
-          </Button>
-        </Box>
-        <form>
-          <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>Subscribe</DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                To subscribe to this website, please enter your email address
-                here. We will send updates occasionally.
-              </DialogContentText>
-              <TextField
-                autoFocus
-                required
-                margin="dense"
-                id="email"
-                label="Email Address"
-                type="email"
-                fullWidth
-                variant="standard"
-                onChange={(e) => setSubscribe(e.target.value)}
-                helperText="Non-email inputs will not be subscribed"
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose}>Cancel</Button>
-              <Button onClick={handleSubscribe} type="submit">
-                Subscribe
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </form>
-      </div>
-      <div className="footer-bottom">
-        <div className="copyright">
-          <p>©2022 Peaceful Nature</p>
+        <div className={classes.groupsSM}>
+          <Subscription>Subscribe to Newsletter</Subscription>
         </div>
-        <div className="PayStack-icon">
-          <img srcSet={Secured} alt="PayStack" />
+        <div className={classes.groups}>
+          {groups}
+          <div className={classes.wrapper}>
+            <Text className={classes.title}>Newsletter</Text>
+            <Subscription>Subscribe here</Subscription>
+          </div>
         </div>
-      </div>
-    </div>
-  );
-};
+      </Container>
+      <Container className={classes.afterFooter}>
+        <Text color="dimmed" size="sm">
+          © 2023 peacefulnature.co.za All rights reserved.
+        </Text>
 
-export default Footer;
+        <Group spacing={0} className={classes.social} position="right" noWrap>
+          <img src={Secured} alt='paystack' width={150} />
+        </Group>
+      </Container>
+    </footer>
+  );
+}

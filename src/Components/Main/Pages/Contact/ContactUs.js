@@ -1,58 +1,27 @@
 import React from "react";
 import "./ContactUs.css";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import EmailTwoToneIcon from "@mui/icons-material/EmailTwoTone";
-import PlaceTwoToneIcon from "@mui/icons-material/PlaceTwoTone";
-import FacebookTwoToneIcon from "@mui/icons-material/FacebookTwoTone";
-import { PopupButton } from "@typeform/embed-react";
+import { GetInTouchSimple } from "./ContactForm";
+import { ContactIconsList } from "./ContactIcons";
+import { Title } from "@mantine/core";
+import { useMediaQuery } from '@mantine/hooks';
 
 const ContactUs = () => {
+  const matches = useMediaQuery('(max-width: 700px)');
   return (
     <div>
-      <div className="contactHeader"></div>
+      {
+        matches && <div className="contactForm">
+          <GetInTouchSimple />
+        </div>
+      }
       <div className="contactBody">
         <div className="contactDetails">
           <div className="detailHeading">
-            <h3>Contact Details</h3>
+            <Title>Contact information</Title>
             <p>Feel free to reach out to us for any enquiries.</p>
           </div>
           <div className="detailContacts">
-            <List sx={{ width: "100%", maxWidth: 360, bgcolor: "whitesmoke" }}>
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar sx={{ bgcolor: "black" }}>
-                    <EmailTwoToneIcon color="yellow" />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  primary="Email"
-                  secondary="info@peacefulnature.co.za"
-                />
-              </ListItem>
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar sx={{ bgcolor: "black" }}>
-                    <PlaceTwoToneIcon color="success" />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  primary="Address"
-                  secondary="Cape Town, South Africa"
-                />
-              </ListItem>
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar sx={{ bgcolor: "black" }}>
-                    <FacebookTwoToneIcon color="error" />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary="Facebook" secondary="Peaceful Nature" />
-              </ListItem>
-            </List>
+            <ContactIconsList variant="gradient" />
           </div>
         </div>
         <div className="contactMap">
@@ -64,16 +33,11 @@ const ContactUs = () => {
           ></iframe>
         </div>
       </div>
-      <div className="contactForm">
-            <PopupButton
-              id="PveibE2H"
-              style={{ fontSize: 20 }}
-              className="my-button"
-            >
-              Click to send message
-            </PopupButton>
-
-      </div>
+      {
+        !matches && <div className="contactForm">
+          <GetInTouchSimple />
+        </div>
+      }
     </div>
   );
 };
