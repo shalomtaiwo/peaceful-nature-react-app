@@ -1,15 +1,12 @@
 import React from "react";
 import { useCart } from "react-use-cart";
-import { Button, Collapse, Divider, Image, Space, Table, Text, Title } from '@mantine/core';
+import { Divider, Image, Space,  Text, Title } from '@mantine/core';
 import { DeliveryContext } from "../Cart/Stepper";
-import { useDisclosure } from "@mantine/hooks";
-import { IconArrowDown } from "@tabler/icons-react";
 import "./Checkout.css";
 
 export default function ReviewTotal({ children, reviewClass, summaryClass, childrenTop, style }) {
     const { cartTotal, items } = useCart();
     const { value } = React.useContext(DeliveryContext);
-    const [opened, { toggle }] = useDisclosure(true);
 
     const rows = items.map((element, index) => (
         <div key={index} style={{

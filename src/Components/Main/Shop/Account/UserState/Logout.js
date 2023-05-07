@@ -2,16 +2,8 @@ import React from "react";
 import { auth } from "../../../../../Firebase-config";
 import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Box } from "@mui/material";
 import alertify from "alertifyjs";
-import { Tabs, Button, Title, Text } from "@mantine/core";
-import {
-	IconMessageCircle,
-	IconSettings,
-	IconChevronRight,
-	IconUserCircle,
-} from "@tabler/icons-react";
-import { AccountSettings } from "./Settings";
+import { Title,  Box } from "@mantine/core";
 
 export default function Logout({ children }) {
 	const [user, loading, error] = useAuthState(auth);

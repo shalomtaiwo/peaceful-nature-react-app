@@ -1,125 +1,136 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-// import Avatar from '@mui/material/Avatar';
-import Menu from "@mui/material/Menu";
-// import MenuItem from '@mui/material/MenuItem';
-// import ListItemIcon from '@mui/material/ListItemIcon';
-// import Divider from '@mui/material/Divider';
-// import IconButton from '@mui/material/IconButton';
-import Typography from "@mui/material/Typography";
-// import Tooltip from '@mui/material/Tooltip';
-// import PersonAdd from '@mui/icons-material/PersonAdd';
-// import Settings from '@mui/icons-material/Settings';
-// import Logout from '@mui/icons-material/Logout';
 import Logo from "./Assets/logo.png";
 import OffCanvas from "./OffCanvas";
 import "./NavBar.css";
-import { Link } from "react-router-dom";
-import AddCartIcon from "../Navbar/Cart-Icon";
+import {
+	createStyles,
+	Header,
+	Group,
+	ActionIcon,
+	Container,
+	Burger,
+} from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { IconUserCircle } from "@tabler/icons-react";
+import { NavLink } from "react-router-dom";
+import AddCartIcon from "./Cart-Icon";
+import UserAccount from "./UserAccount";
 
-const NavBar = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  // const handleClick = (event) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+const useStyles = createStyles((theme) => ({
+	inner: {
+		display: "flex",
+		justifyContent: "space-between",
+		alignItems: "center",
+		height: "60px",
 
-  return (
-    <div className="mainmenu">
-      <div className="logo">
-        <img srcSet={Logo} alt="logo" />
-      </div>
-      <div className="mobileNav">
-        <React.Fragment>
-          <Box
-            sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
-          >
-            <Typography
-              sx={{ minWidth: 100 }}
-              label="Home"
-              to="/"
-              component={Link}
-            >
-              Home
-            </Typography>
-            <Typography
-              sx={{ minWidth: 100 }}
-              label="About"
-              to="/about"
-              component={Link}
-            >
-              About
-            </Typography>
-            <Typography
-              sx={{ minWidth: 100 }}
-              label="Shop"
-              to="/shop"
-              component={Link}
-            >
-              Shop
-            </Typography>
-            <Typography
-              sx={{ minWidth: 100 }}
-              label="Account"
-              to="/account"
-              component={Link}
-            >
-              Account
-            </Typography>
-          </Box>
-          <Menu
-            anchorEl={anchorEl}
-            id="account-menu"
-            open={open}
-            onClose={handleClose}
-            onClick={handleClose}
-            PaperProps={{
-              elevation: 0,
-              sx: {
-                overflow: "visible",
-                filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                mt: 1.5,
-                "& .MuiAvatar-root": {
-                  width: 32,
-                  height: 32,
-                  ml: -0.5,
-                  mr: 1,
-                },
-                "&:before": {
-                  content: '""',
-                  display: "block",
-                  position: "absolute",
-                  top: 0,
-                  right: 14,
-                  width: 10,
-                  height: 10,
-                  bgcolor: "background.paper",
-                  transform: "translateY(-50%) rotate(45deg)",
-                  zIndex: 0,
-                },
-              },
-            }}
-            transformOrigin={{ horizontal: "right", vertical: "top" }}
-            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-          ></Menu>
-        </React.Fragment>
-      </div>
-      <div className="sideIcons">
-        <OffCanvas />
-        <Typography
-          className="topCartIcon mobileNav"
-          label="cart"
-          to="/cart"
-          component={Link}
-        >
-          <AddCartIcon />
-        </Typography>
-      </div>
-    </div>
-  );
-};
+		[theme.fn.smallerThan("sm")]: {
+			justifyContent: "flex-start",
+		},
+	},
 
-export default NavBar;
+	links: {
+		width: "260px",
+
+		[theme.fn.smallerThan("sm")]: {
+			display: "none",
+		},
+	},
+
+	social: {
+		width: "260px",
+
+		[theme.fn.smallerThan("sm")]: {
+			width: "auto",
+			marginLeft: "auto",
+		},
+	},
+
+	burger: {
+		marginRight: theme.spacing.md,
+
+		[theme.fn.largerThan("sm")]: {
+			display: "none",
+		},
+	},
+}));
+
+export default function NavBar() {
+	const links = [
+		{
+			link: "/",
+			label: "Home",
+		},
+		{
+			link: "/about",
+			label: "About",
+		},
+		{
+			link: "/shop",
+			label: "Shop",
+		},
+	];
+
+	const [opened, { toggle }] = useDisclosure(false);
+	const { classes } = useStyles();
+
+  const activeStyle = {
+		color: 'green',
+    fontWeight: 'bold',
+	}
+
+	const items = links.map((link) => (
+		<NavLink
+			key={link.label}
+			to={link.link}
+      style={({ isActive }) => (isActive ? activeStyle : undefined)}
+			className={"navlink"}
+		>
+			{link.label}
+		</NavLink>
+	));
+
+	return (
+		<Header
+			height={90}
+			pt={10}
+		>
+			<Container className={classes.inner}>
+				<Burger
+					opened={opened}
+					onClick={toggle}
+					size="sm"
+					className={classes.burger}
+				/>
+				<Group
+					className={classes.links}
+					spacing={22}
+				>
+					{items}
+				</Group>
+
+				<img
+					src={Logo}
+					alt="logo"
+					width={80}
+				/>
+
+				<Group
+					spacing={22}
+					className={classes.social}
+					position="right"
+					noWrap
+				>
+					<UserAccount />
+
+					<ActionIcon size={29}>
+						<AddCartIcon />
+					</ActionIcon>
+
+					<ActionIcon size="lg">
+						<OffCanvas />
+					</ActionIcon>
+				</Group>
+			</Container>
+		</Header>
+	);
+}

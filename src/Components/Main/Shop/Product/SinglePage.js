@@ -1,16 +1,11 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Data from "./Data";
-import {
-  Breadcrumbs,
-  Link,
-  Typography,
-} from "@mui/material";
 import { useCart } from "react-use-cart";
 import alertify from "alertifyjs";
 //import Comments from "./Comments";
 import Error from "../../../../Error";
-import { Space, Tabs, Text, Title, NumberInput, Group, ActionIcon, Button, Divider } from '@mantine/core';
+import { Space, Tabs, Text, Title, NumberInput, Group, ActionIcon, Button, Divider, Breadcrumbs } from '@mantine/core';
 import { IconMinus, IconPlus } from "@tabler/icons-react";
 
 
@@ -47,13 +42,13 @@ const SinglePage = () => {
     <div className="singleProduct">
       <div role="presentation" className="breadCrumbs">
         <Breadcrumbs aria-label="breadcrumb">
-          <Link underline="hover" color="inherit" href="/">
+          <Link to="/">
             Home
           </Link>
-          <Link underline="hover" color="inherit" href="/shop">
+          <Link to="/shop">
             Shop
           </Link>
-          <Typography color="text.primary">{title}</Typography>
+          <Text color="black">{title}</Text>
         </Breadcrumbs>
       </div>
       <div className="singleItem">
@@ -62,7 +57,7 @@ const SinglePage = () => {
         </div>
         <div className="singleDetails">
           <Tabs color="green" defaultValue="description">
-            <Title>{title}</Title>
+            <Title order={2}>{title}</Title>
             <Space h="xl" />
             <Tabs.List>
               <Tabs.Tab value="description">Description</Tabs.Tab>
