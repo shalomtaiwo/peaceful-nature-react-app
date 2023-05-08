@@ -1,12 +1,12 @@
-import {Box, Title} from "@mantine/core";
+import { Box, Title } from "@mantine/core";
 import alertify from "alertifyjs";
-import {signOut} from "firebase/auth";
+import { signOut } from "firebase/auth";
 import React from "react";
-import {useAuthState} from "react-firebase-hooks/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-import {auth} from "../../../../../Firebase-config";
+import { auth } from "../../../../../Firebase-config";
 
-export default function Logout({children}) {
+export default function Logout({ children }) {
   const [user, loading, error] = useAuthState(auth);
 
   function warningNotifier(message) {
@@ -20,16 +20,27 @@ export default function Logout({children}) {
   };
 
   if (loading) {
-    return (<div><p>Initialising User...</p>
-			</div>);
+    return (
+      <div>
+        <p>Initialising User...</p>
+      </div>
+    );
   }
   if (error) {
-    return (<div><p>Error: {error}</p>
-			</div>);
+    return (
+      <div>
+        <p>Error: {error}</p>
+      </div>
+    );
   }
-  return (<Box sx = {{ width: "100%" }}><div><Title>Hi<b> { user?.displayName }!
-          </b>
-				</Title></div>
-				{children}
-			</Box>);
+  return (
+    <Box sx={{ width: "100%" }}>
+      <div>
+        <Title>
+          Hi<b> {user?.displayName}!</b>
+        </Title>
+      </div>
+      {children}
+    </Box>
+  );
 }

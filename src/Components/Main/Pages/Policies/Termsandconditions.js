@@ -1,6 +1,6 @@
-import {Breadcrumbs, Text} from "@mantine/core";
+import { Breadcrumbs, Text } from "@mantine/core";
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const termsandconditions = () => {
   return (
@@ -8,9 +8,7 @@ const termsandconditions = () => {
       <div role="presentation" className="breadCrumbs">
         <h2>Terms and Conditions</h2>
         <Breadcrumbs>
-          <Link to="/">
-            Home
-          </Link>
+          <Link to="/">Home</Link>
           <Text color="black">Terms and conditions</Text>
         </Breadcrumbs>
       </div>
