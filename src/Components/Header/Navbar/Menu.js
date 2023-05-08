@@ -12,7 +12,7 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconUserCircle } from "@tabler/icons-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import AddCartIcon from "./Cart-Icon";
 import UserAccount from "./UserAccount";
 
@@ -73,16 +73,22 @@ export default function NavBar() {
 	const [opened, { toggle }] = useDisclosure(false);
 	const { classes } = useStyles();
 
-  const activeStyle = {
-		color: 'green',
-    fontWeight: 'bold',
-	}
+	const activeStyle = {
+		color: "green",
+		fontWeight: "bold",
+	};
+
+	const navigate = useNavigate();
+
+	const cart = () => {
+		navigate("/cart");
+	};
 
 	const items = links.map((link) => (
 		<NavLink
 			key={link.label}
 			to={link.link}
-      style={({ isActive }) => (isActive ? activeStyle : undefined)}
+			style={({ isActive }) => (isActive ? activeStyle : undefined)}
 			className={"navlink"}
 		>
 			{link.label}
@@ -122,7 +128,7 @@ export default function NavBar() {
 				>
 					<UserAccount />
 
-					<ActionIcon size={29}>
+					<ActionIcon size={29} onClick={cart}>
 						<AddCartIcon />
 					</ActionIcon>
 
