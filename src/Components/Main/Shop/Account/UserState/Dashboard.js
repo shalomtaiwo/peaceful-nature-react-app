@@ -89,12 +89,15 @@ export function Dashboard({ children }) {
 	const { classes, cx } = useStyles();
 	const [active, setActive] = useState("Billing");
 
+	const activeStyle = {
+		color: 'green'
+	}
+
 	const links = data.map((item) => (
 		<NavLink
-			className={cx(classes.link, {
-				[classes.linkActive]: item.label === active,
-			})}
+			className={`${cx(classes.link)} navlink`}
 			to={item.link}
+			style={({ isActive }) => (isActive ? activeStyle : undefined)}
 			color="green"
 			key={item.label}
 			onClick={() => {

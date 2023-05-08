@@ -1,6 +1,5 @@
 .contactBody {
   display: flex;
-  width: 100%;
   justify-content: space-between;
   align-items: center;
   background-color: whitesmoke;
@@ -15,12 +14,12 @@
 .contactMap {
   width: 50%;
   height: 450px;
-  padding: 10px 0 10px 10px;
+  padding: 10px;
 }
 
 .contactForm {
-  background-color: black;
-  color: white;
+  background-color: rgb(255, 255, 255);
+  color: black;
   padding: 70px 0;
   width: 100%;
   display: flex;

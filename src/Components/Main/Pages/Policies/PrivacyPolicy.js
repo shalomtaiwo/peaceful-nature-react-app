@@ -1,5 +1,6 @@
+import { Breadcrumbs, Text } from "@mantine/core";
 import React from "react";
-import { Breadcrumbs, Link, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const PrivacyPolicy = () => {
   return (
@@ -7,10 +8,10 @@ const PrivacyPolicy = () => {
       <div role="presentation" className="breadCrumbs">
         <h2>Privacy policy</h2>
         <Breadcrumbs aria-label="breadcrumb">
-          <Link underline="hover" color="inherit" href="/">
+          <Link  to="/">
             Home
           </Link>
-          <Typography color="text.primary">Privacy Policy</Typography>
+          <Text color="black">Privacy Policy</Text>
         </Breadcrumbs>
       </div>
       <div className="privacy">

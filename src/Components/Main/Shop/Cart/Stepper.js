@@ -1,6 +1,5 @@
 import Cart from "./Cart";
 import Checkout from "../Checkout/Checkout";
-import { Box } from "@mui/material";
 import { useState, createContext } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import {
@@ -12,6 +11,7 @@ import {
 	LoadingOverlay,
 	Image,
 	Modal,
+	Box,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useNavigate } from "react-router-dom";

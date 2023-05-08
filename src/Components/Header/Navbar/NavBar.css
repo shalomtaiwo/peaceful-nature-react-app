@@ -1,41 +1,71 @@
 .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
   color: black !important;
 }
+
 .css-1bjk3jo-MuiButtonBase-root-MuiBottomNavigationAction-root.Mui-selected {
   color: rgb(71, 71, 71) !important;
 }
+
 .css-1y2i219 {
   position: fixed;
 }
+
 .cartTab {
   display: none !important;
 }
+
 .mainmenu {
   display: flex;
   justify-content: space-between;
   padding: 10px 40px;
 }
+
 .logo img {
   height: 60px;
 }
+
 .css-1nl0624 {
   padding-bottom: 0 !important;
   display: none;
 }
+
 .css-gy4i07-MuiPaper-root {
   z-index: 999999 !important;
 }
+
 .offCanvas {
   z-index: 9999999999 !important;
 }
+
 .sideIcons {
   display: inline-flex;
   justify-content: center;
   align-items: center;
 }
+
 .topCartIcon {
   cursor: pointer;
 }
+
 .mobileNav {
   display: flex;
+}
+
+.mantine-141m6e2{
+  padding: 4px 2px 2px 2px !important;
+}
+.mantine-bz0fkt{
+  margin-bottom: 0 !important;
+}
+.navlink{
+  text-decoration: none;
+  color: rgb(54, 54, 54);
+}
+.breadCrumbs a {
+  text-decoration: none;
+  font-size: 15px;
+  color: rgb(36, 35, 35);
+}
+.mantine-5t41mi{
+  width: inherit !important;
 }

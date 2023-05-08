@@ -1,16 +1,17 @@
+import { Breadcrumbs, Text } from "@mantine/core";
 import React from "react";
-import { Breadcrumbs, Link, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const termsandconditions = () => {
   return (
     <div className="extraPages">
       <div role="presentation" className="breadCrumbs">
         <h2>Terms and Conditions</h2>
-        <Breadcrumbs aria-label="breadcrumb">
-          <Link underline="hover" color="inherit" href="/">
+        <Breadcrumbs>
+          <Link to="/">
             Home
           </Link>
-          <Typography color="text.primary">Terms and conditions</Typography>
+          <Text color="black">Terms and conditions</Text>
         </Breadcrumbs>
       </div>
       <div className="terms">
