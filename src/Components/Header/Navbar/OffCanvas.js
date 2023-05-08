@@ -1,43 +1,43 @@
+import {ActionIcon, Center, Drawer, Stack} from "@mantine/core";
+import {useDisclosure} from "@mantine/hooks";
+import {IconMenu} from "@tabler/icons-react";
 import * as React from "react";
-import { useDisclosure } from "@mantine/hooks";
-import { Drawer, ActionIcon, Stack, Center } from "@mantine/core";
-import { IconMenu } from "@tabler/icons-react";
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 export default function OffCanvas() {
-	const [opened, { open, close }] = useDisclosure(false);
+  const [opened, {open, close}] = useDisclosure(false);
 
-	const links = [
+  const links = [
     {
-			link: "/about",
-			label: "About Us",
-		},
-		{
-			link: "/privacypolicy",
-			label: "Privacy Policy",
-		},
-		{
-			link: "/tc",
-			label: "Terms and Conditions",
-		},
-		{
-			link: "/contact",
-			label: "Contact Us",
-		},
-	];
+      link : "/about",
+      label : "About Us",
+    },
+    {
+      link : "/privacypolicy",
+      label : "Privacy Policy",
+    },
+    {
+      link : "/tc",
+      label : "Terms and Conditions",
+    },
+    {
+      link : "/contact",
+      label : "Contact Us",
+    },
+  ];
   const activeStyle = {
 		color: 'green'
 	}
 
 	const items = links.map((link) => (
 		<NavLink
-			key={link.label}
-			to={link.link}
-      style={({ isActive }) => (isActive ? activeStyle : undefined)}
-      className={'navlink'}
-		>
-			{link.label}
-		</NavLink>
+  key = {link.label} to = {link.link} style = {({isActive}) => (
+                                                   isActive
+                                                       ? activeStyle
+                                                       : undefined)} className =
+      {'navlink'} >
+      {link.label}<
+          /NavLink>
 	));
 
 	return (
@@ -51,12 +51,11 @@ export default function OffCanvas() {
 			>
 				<Center>
 					<Stack>{items}</Stack>
-				</Center>
+      </Center>
 			</Drawer>
 
-			<ActionIcon onClick={open}>
-				<IconMenu size={19} />
-			</ActionIcon>
-		</>
+      <ActionIcon onClick = {open}><IconMenu size = { 19 } />
+			</ActionIcon><
+      />
 	);
 }

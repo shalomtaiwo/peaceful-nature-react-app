@@ -1,6 +1,6 @@
-import { Breadcrumbs, Text } from "@mantine/core";
+import {Breadcrumbs, Text} from "@mantine/core";
 import React from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const termsandconditions = () => {
   return (

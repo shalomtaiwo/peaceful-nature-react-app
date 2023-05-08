@@ -1,37 +1,32 @@
-import { Menu, ActionIcon } from "@mantine/core";
+import {ActionIcon, Menu} from "@mantine/core";
 import {
-	IconSettings,
-	IconUserCircle,
-	IconDashboard,
-	IconCategory,
-	IconHomeEdit,
-	IconDoorExit,
+  IconCategory,
+  IconDashboard,
+  IconDoorExit,
+  IconHomeEdit,
+  IconSettings,
+  IconUserCircle,
 } from "@tabler/icons-react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { NavLink } from "react-router-dom";
-import { auth } from "../../../Firebase-config";
+import {useAuthState} from "react-firebase-hooks/auth";
+import {NavLink} from "react-router-dom";
+
+import {auth} from "../../../Firebase-config";
 
 export default function UserAccount() {
-	const [user] = useAuthState(auth);
+  const [user] = useAuthState(auth);
 
-	return (
+        return (
 		<Menu
-			shadow="md"
-			width={200}
-		>
-			<Menu.Target>
-				<ActionIcon size="lg">
-					<IconUserCircle size={20} />
+        shadow = "md"
+        width = {200} > <Menu.Target><ActionIcon size = "lg">
+                <IconUserCircle size = { 20 } />
 				</ActionIcon>
-			</Menu.Target>
+                </Menu.Target>
 
 			<Menu.Dropdown>
-				<Menu.Label>Account</Menu.Label>
-				<NavLink
-					to={"/account"}
-					className={"navlink"}
-				>
-					<Menu.Item icon={<IconDashboard size={14} />}>Dashboard</Menu.Item>
+				<Menu.Label>Account</Menu
+                     .Label>< NavLink
+        to = {"/account"} className = {"navlink"} > < Menu.Item icon = {<IconDashboard size={14} />}>Dashboard</Menu.Item>
 				</NavLink>
 				<NavLink
 					to={"/account/orders"}

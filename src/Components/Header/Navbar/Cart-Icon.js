@@ -1,16 +1,17 @@
+import {Indicator} from "@mantine/core";
+import {IconShoppingCart} from "@tabler/icons-react";
 import * as React from "react";
-import { Indicator } from "@mantine/core";
-import { useCart } from "react-use-cart";
-import { IconShoppingCart } from "@tabler/icons-react";
+import {useCart} from "react-use-cart";
 
 export default function AddCartIcon() {
-	const { totalItems } = useCart();
-	return (
+  const {totalItems} = useCart();
+        return (
 		<Indicator
-			label={totalItems}
+                        label={totalItems}
 			color="red" radius="xs" size={9} withBorder processing
 		>
-			<IconShoppingCart size={19} />
+			<IconShoppingCart size={
+    19} />
 		</Indicator>
 	);
 }

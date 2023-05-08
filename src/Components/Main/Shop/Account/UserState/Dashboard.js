@@ -1,115 +1,106 @@
-import { useState } from "react";
-import { createStyles, Group, Navbar, Title } from "@mantine/core";
+import {createStyles, Group, Navbar, Title} from "@mantine/core";
 import {
-	IconReceipt2,
-	IconLogout,
-	IconSettings,
-	IconHome,
-	IconDashboard,
+  IconDashboard,
+  IconHome,
+  IconLogout,
+  IconReceipt2,
+  IconSettings,
 } from "@tabler/icons-react";
 import alertify from "alertifyjs";
-import { auth } from "../../../../../Firebase-config";
-import { signOut } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { NavLink } from "react-router-dom";
+import {signOut} from "firebase/auth";
+import {useState} from "react";
+import {useAuthState} from "react-firebase-hooks/auth";
+import {NavLink} from "react-router-dom";
 
-const useStyles = createStyles((theme) => ({
-	header: {
-		paddingBottom: theme.spacing.md,
-		paddingTop: theme.spacing.md,
-		paddingLeft: theme.spacing.md,
-		marginBottom: `calc(${theme.spacing.md} * 1.5)`,
-		borderBottom: `1px solid ${theme.colors.gray[2]}`,
-		borderTop: `1px solid ${theme.colors.gray[2]}`,
-	},
+import {auth} from "../../../../../Firebase-config";
 
-	normal: {
-		paddingLeft: theme.spacing.md,
-	},
+const useStyles = createStyles(
+    (theme) => ({
+      header : {
+        paddingBottom : theme.spacing.md,
+        paddingTop : theme.spacing.md,
+        paddingLeft : theme.spacing.md,
+        marginBottom : `calc(${theme.spacing.md} * 1.5)`,
+        borderBottom : `1px solid ${theme.colors.gray[2]}`,
+        borderTop : `1px solid ${theme.colors.gray[2]}`,
+      },
 
-	footer: {
-		paddingLeft: theme.spacing.md,
-		paddingTop: theme.spacing.md,
-		marginTop: theme.spacing.md,
-		borderTop: `1px solid ${
-			theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
-		}`,
-	},
+      normal : {
+        paddingLeft : theme.spacing.md,
+      },
 
-	link: {
-		...theme.fn.focusStyles(),
-		display: "flex",
-		alignItems: "center",
-		textDecoration: "none",
-		fontSize: theme.fontSizes.sm,
-		color:
-			theme.colorScheme === "dark"
-				? theme.colors.dark[1]
-				: theme.colors.green[7],
-		padding: `15px 5px`,
-		borderRadius: theme.radius.sm,
-		fontWeight: 500,
+      footer : {
+        paddingLeft : theme.spacing.md,
+        paddingTop : theme.spacing.md,
+        marginTop : theme.spacing.md,
+        borderTop : `1px solid ${
+            theme.colorScheme === "dark" ? theme.colors.dark[4]
+                                         : theme.colors.gray[2]}`,
+      },
 
-		"&:hover": {
-			backgroundColor:
-				theme.colorScheme === "dark"
-					? theme.colors.dark[6]
-					: theme.colors.green[0],
-			color: theme.colorScheme === "dark" ? theme.white : theme.black,
-		},
-	},
+      link : {
+        ...theme.fn.focusStyles(),
+        display : "flex",
+        alignItems : "center",
+        textDecoration : "none",
+        fontSize : theme.fontSizes.sm,
+        color : theme.colorScheme === "dark" ? theme.colors.dark[1]
+                                             : theme.colors.green[7],
+        padding : `15px 5px`,
+        borderRadius : theme.radius.sm,
+        fontWeight : 500,
 
-	linkIcon: {
-		color:
-			theme.colorScheme === "dark"
-				? theme.colors.dark[2]
-				: theme.colors.gray[6],
-		marginRight: theme.spacing.sm,
-	},
+        "&:hover" : {
+          backgroundColor : theme.colorScheme === "dark"
+                                ? theme.colors.dark[6]
+                                : theme.colors.green[0],
+          color : theme.colorScheme === "dark" ? theme.white : theme.black,
+        },
+      },
 
-	linkActive: {
-		"&, &:hover": {
-			backgroundColor: theme.colors.lime[0],
-			color: theme.fn.variant({
-				variant: "light",
-				color: theme.colors.green[0],
-			}),
-		},
-	},
-}));
+      linkIcon : {
+        color : theme.colorScheme === "dark" ? theme.colors.dark[2]
+                                             : theme.colors.gray[6],
+        marginRight : theme.spacing.sm,
+      },
+
+      linkActive : {
+        "&, &:hover" : {
+          backgroundColor : theme.colors.lime[0],
+          color : theme.fn.variant({
+            variant : "light",
+            color : theme.colors.green[0],
+          }),
+        },
+      },
+    }));
 
 const data = [
-	{ link: "", label: "Dashboard", icon: IconDashboard },
-	{ link: "orders", label: "Orders", icon: IconReceipt2 },
-	{ link: "settings", label: "Settings", icon: IconSettings },
-	{ link: "addresses", label: "Addresses", icon: IconHome },
+  {link : "", label : "Dashboard", icon : IconDashboard},
+  {link : "orders", label : "Orders", icon : IconReceipt2},
+  {link : "settings", label : "Settings", icon : IconSettings},
+  {link : "addresses", label : "Addresses", icon : IconHome},
 ];
 
-export function Dashboard({ children }) {
-	const { classes, cx } = useStyles();
-	const [active, setActive] = useState("Billing");
+export function Dashboard({children}) {
+  const {classes, cx} = useStyles();
+  const [active, setActive] = useState("Billing");
 
-	const activeStyle = {
+        const activeStyle = {
 		color: 'green'
 	}
 
 	const links = data.map((item) => (
 		<NavLink
-			className={`${cx(classes.link)} navlink`}
-			to={item.link}
-			style={({ isActive }) => (isActive ? activeStyle : undefined)}
-			color="green"
-			key={item.label}
-			onClick={() => {
-				setActive(item.label);
-			}}
-		>
-			<item.icon
-				className={classes.linkIcon}
-				stroke={1.5}
-			/>
-			<span>{item.label}</span>
-		</NavLink>
+        className = {`${cx(classes.link)} navlink`} to = {item.link} style = {
+            ({isActive}) =>
+                (isActive ? activeStyle : undefined)} color = "green"
+        key = {item.label} onClick = {() => { setActive(item.label); }} > <
+                                     item.icon
+        className = {classes.linkIcon} stroke =
+        { 1.5 } />
+			<span>{item.label}</span >
+            </NavLink>
 	));
 
 	const [user, loading, error] = useAuthState(auth);
@@ -128,14 +119,14 @@ export function Dashboard({ children }) {
 		return (
 			<div>
 				<p>Initialising User...</p>
-			</div>
+            </div>
 		);
 	}
 	if (error) {
 		return (
 			<div>
 				<p>Error: {error}</p>
-			</div>
+            </div>
 		);
 	}
 
@@ -161,40 +152,25 @@ export function Dashboard({ children }) {
 							position="apart"
 						>
 							<Title order={4}>Hello {user?.displayName}!</Title>
-						</Group>
-						<div className={classes.normal}>{links}</div>
-					</Navbar.Section>
+            </Group>
+						<div className={classes.normal}>{links}</div><
+            /Navbar.Section>
 
 					<Navbar.Section className={classes.footer}>
 						<a
 							href="#/"
-							className={classes.link}
-							onClick={logout}
-						>
-							<IconLogout
-								className={classes.linkIcon}
-								stroke={1.5}
-							/>
-							<span>Logout</span>
-						</a>
+        className = {classes.link} onClick = {logout} > < IconLogout
+        className = {classes.linkIcon} stroke =
+        { 1.5 } />
+							<span>Logout</span > </a>
 					</Navbar.Section>
-				</Navbar>
-			</div>
-			<div
-				style={{
-					width: "calc(100% - 300px)",
-					margin: "0 auto",
-					maxWidth: "850px",
-				}}
-			>
-				<div
-					style={{
-						margin: "0 20px",
-					}}
-				>
-					{children}
-				</div>
-			</div>
-		</div>
+            </Navbar>
+			</div>< div
+        style = {
+          { width: "calc(100% - 300px)", margin: "0 auto", maxWidth: "850px", }
+        } > < div
+        style = {{ margin: "0 20px", }} > {children}</div>
+			</div><
+                /div>
 	);
 }

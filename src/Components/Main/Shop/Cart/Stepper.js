@@ -1,285 +1,268 @@
-import Cart from "./Cart";
-import Checkout from "../Checkout/Checkout";
-import { useState, createContext } from "react";
-import { useDisclosure } from "@mantine/hooks";
-import {
-	Stepper,
-	Button,
-	Group,
-	TextInput,
-	Stack,
-	LoadingOverlay,
-	Image,
-	Modal,
-	Box,
-} from "@mantine/core";
-import { useForm } from "@mantine/form";
-import { useNavigate } from "react-router-dom";
-import { useCart } from "react-use-cart";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from "../../../../Firebase-config";
-import { PaystackConsumer } from "react-paystack";
-import { useRef } from "react";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import emailjs from "@emailjs/browser";
-import { AuthenticationForm } from "../Account/UserState/Login";
-import ReviewTotal from "../Checkout/ReviewTotal";
+import {
+  Box,
+  Button,
+  Group,
+  Image,
+  LoadingOverlay,
+  Modal,
+  Stack,
+  Stepper,
+  TextInput,
+} from "@mantine/core";
+import {useForm} from "@mantine/form";
+import {useDisclosure} from "@mantine/hooks";
+import {addDoc, collection, serverTimestamp} from "firebase/firestore";
+import {createContext, useRef, useState} from "react";
+import {useAuthState} from "react-firebase-hooks/auth";
+import {PaystackConsumer} from "react-paystack";
+import {useNavigate} from "react-router-dom";
+import {useCart} from "react-use-cart";
+
+import {auth, db} from "../../../../Firebase-config";
 import useAxios from "../../../../hooks/useAxios";
+import {AuthenticationForm} from "../Account/UserState/Login";
+import Checkout from "../Checkout/Checkout";
+import ReviewTotal from "../Checkout/ReviewTotal";
+
+import Cart from "./Cart";
 
 export const DeliveryContext = createContext();
 
 export default function BasicTabs() {
-	const { items, isEmpty, cartTotal, emptyCart, totalUniqueItems, totalItems } =
-		useCart();
-	const [user, loading] = useAuthState(auth);
-	const [value, setValue] = useState(null);
+  const {items, isEmpty, cartTotal, emptyCart, totalUniqueItems, totalItems} =
+      useCart();
+  const [user, loading] = useAuthState(auth);
+  const [value, setValue] = useState(null);
 
-	const [active, setActive] = useState(0);
-	const [visible, { toggle }] = useDisclosure(false);
+  const [active, setActive] = useState(0);
+  const [visible, {toggle}] = useDisclosure(false);
 
-	const publicKey = process.env.REACT_APP_PAYSTACK_KEY;
-	const amount = cartTotal * 100 + value * 100;
-	const currency = "ZAR";
+  const publicKey = process.env.REACT_APP_PAYSTACK_KEY;
+  const amount = cartTotal * 100 + value * 100;
+  const currency = "ZAR";
 
-	const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-	function generateString(length) {
-		let result = "";
-		const charactersLength = characters.length;
-		for (let i = 0; i < length; i++) {
-			result += characters.charAt(Math.floor(Math.random() * charactersLength));
-		}
+  function generateString(length) {
+    let result = "";
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
 
-		return "PE-" + result;
-	}
+    return "PE-" + result;
+  }
 
-	const collectionAddress = {
-		street_address: "14a Parklands Main road",
-		local_area: "Parklands",
-		company: "Peaceful Nature",
-		city: "Cape Town",
-		country: "ZA",
-		code: "7441",
-	};
+  const collectionAddress = {
+    street_address : "14a Parklands Main road",
+    local_area : "Parklands",
+    company : "Peaceful Nature",
+    city : "Cape Town",
+    country : "ZA",
+    code : "7441",
+  };
 
-	const checkoutstep = useForm({
-		initialValues: {
-			profile: {
-				fullName: "",
-				email: "",
-				number: 0,
-			},
-			address: {
-				street_address: "",
-				local_area: "",
-				company: "",
-				city: "",
-				country: "ZA",
-				code: "",
-			},
-		},
+  const checkoutstep = useForm({
+    initialValues : {
+      profile : {
+        fullName : "",
+        email : "",
+        number : 0,
+      },
+      address : {
+        street_address : "",
+        local_area : "",
+        company : "",
+        city : "",
+        country : "ZA",
+        code : "",
+      },
+    },
 
-		validate: (values) => {
-			if (active === 1) {
-				return {
-					number:
-						/^(\+\d{1,2}\s?)?1?-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(
-							values.profile.number
-						)
-							? null
-							: "Invalid phone number",
-				};
-			}
-			if (active === 2) {
-				return {
-					street_address:
-						values.address.street_address === "" || null
-							? "Street address is required"
-							: null,
-					local_area:
-						values.address.local_area === "" || null
-							? "Local area is required"
-							: null,
-					city: values.address.city === "" || null ? "City is required" : null,
-					code:
-						values.address.code === "" || null
-							? "Postal code is required"
-							: null,
-				};
-			}
-			return {};
-		},
-	});
+    validate : (values) => {
+      if (active === 1) {
+        return {
+          number :
+              /^(\+\d{1,2}\s?)?1?-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/
+                      .test(values.profile.number)
+                  ? null
+                  : "Invalid phone number",
+        };
+      }
+      if (active === 2) {
+        return {
+          street_address : values.address.street_address === "" || null
+                               ? "Street address is required"
+                               : null,
+          local_area : values.address.local_area === "" || null
+                           ? "Local area is required"
+                           : null,
+          city : values.address.city === "" || null ? "City is required" : null,
+          code : values.address.code === "" || null ? "Postal code is required"
+                                                    : null,
+        };
+      }
+      return {};
+    },
+  });
 
-	const nextStep = () =>
-		setActive((current) => {
-			if (checkoutstep.validate().hasErrors) {
-				return current;
-			}
-			return current < 5 ? current + 1 : current;
-		});
+  const nextStep = () => setActive((current) => {
+    if (checkoutstep.validate().hasErrors) {
+      return current;
+    }
+    return current < 5 ? current + 1 : current;
+  });
 
-	const prevStep = () =>
-		setActive((current) => (current > 0 ? current - 1 : current));
+  const prevStep = () =>
+      setActive((current) => (current > 0 ? current - 1 : current));
 
-	let navigate = useNavigate();
-	function shopping() {
-		navigate("/shop");
-	}
+  let navigate = useNavigate();
+  function shopping() { navigate("/shop"); }
 
-	const form = useRef();
+  const form = useRef();
 
-	const config = {
-		reference: new Date().getTime().toString(),
-		email: user?.email,
-		amount,
-		currency,
-		metadata: {
-			custom_fields: [
-				{
-					display_name: "Full name",
-					variable_name: "Full name",
-					value: user?.displayName,
-				},
-				{
-					display_name: "Phone",
-					variable_name: "Phone",
-					value: checkoutstep.values.profile.number,
-				},
-			],
-		},
-		publicKey,
-	};
+  const config = {
+    reference : new Date().getTime().toString(),
+    email : user?.email,
+    amount,
+    currency,
+    metadata : {
+      custom_fields : [
+        {
+          display_name : "Full name",
+          variable_name : "Full name",
+          value : user?.displayName,
+        },
+        {
+          display_name : "Phone",
+          variable_name : "Phone",
+          value : checkoutstep.values.profile.number,
+        },
+      ],
+    },
+    publicKey,
+  };
 
-	const orderCollectionRef = collection(db, "orders");
-	const addressCollectionRef = collection(db, "addresses");
+  const orderCollectionRef = collection(db, "orders");
+  const addressCollectionRef = collection(db, "addresses");
 
-	const { mutateAsync } = useAxios();
+  const {mutateAsync} = useAxios();
 
-	const item = items?.map((product) => {
-		const newItem = {
-			description: product.short_desc,
-			sku: product.slug,
-			qty: product.quantity,
-			vendor: "Peaceful Nature",
-			unit_price: product.price,
-			unit_weight_kg: 0.4,
-		};
-		return newItem;
-	});
+  const item = items?.map((product) => {
+    const newItem = {
+      description : product.short_desc,
+      sku : product.slug,
+      qty : product.quantity,
+      vendor : "Peaceful Nature",
+      unit_price : product.price,
+      unit_weight_kg : 0.4,
+    };
+    return newItem;
+  });
 
-	const createOrder = async () => {
-		const body = {
-			customer_name: user?.displayName,
-			customer_surname: user?.displayName,
-			customer_email: user?.email,
-			customer_phone: checkoutstep.values.profile.number,
-			currency: "ZAR",
-			buyer_selected_shipping_cost: parseInt(value),
-			buyer_selected_shipping_method: "Standard Shipping",
-			delivery_address: checkoutstep.values.address,
-			order_items: item,
-			payment_status: "paid",
-		};
-		var today = new Date();
-		var year = today.getFullYear();
-		var mes = today.getMonth() + 1;
-		var dia = today.getDate();
-		var fetchDate = dia + "-" + mes + "-" + year;
-		toggle();
+  const createOrder = async () => {
+    const body = {
+      customer_name : user?.displayName,
+      customer_surname : user?.displayName,
+      customer_email : user?.email,
+      customer_phone : checkoutstep.values.profile.number,
+      currency : "ZAR",
+      buyer_selected_shipping_cost : parseInt(value),
+      buyer_selected_shipping_method : "Standard Shipping",
+      delivery_address : checkoutstep.values.address,
+      order_items : item,
+      payment_status : "paid",
+    };
+    var today = new Date();
+    var year = today.getFullYear();
+    var mes = today.getMonth() + 1;
+    var dia = today.getDate();
+    var fetchDate = dia + "-" + mes + "-" + year;
+    toggle();
 
-		const options = {
-			url: "https://api.sandbox.bobgo.co.za/v2/orders?account_id=192",
-			method: "POST",
-			headers: {
-				accept: "application/json",
-				"content-type": "application/json",
-				Authorization: "Bearer 607cdd7584a0474a98af798c8e3f6ca1",
-			},
-			body,
-		};
-		try {
-			mutateAsync(options).then(() => {
-				try {
-					addDoc(orderCollectionRef, {
-						userID: user?.uid,
-						Phone: checkoutstep.values.profile.number,
-						products: items,
-						address: checkoutstep.values.address,
-						orderNo: generateString(8),
-						OrderDate: fetchDate,
-						delivery_status: "Processing",
-						tracking: "processing",
-						subTotal: cartTotal,
-						shippingTotal: parseInt(value),
-						Total: cartTotal + parseInt(value),
-						timestamp: serverTimestamp(),
-					})
-						.then(function (res) {
-							emailjs
-								.sendForm(
-									process.env.REACT_APP_EMAILJS_SERVICE,
-									process.env.REACT_APP_EMAILJS_TEMPLATE,
-									form.current,
-									process.env.REACT_APP_EMAILJS_API
-								)
-								.then(
-									() => {
-										navigate(`/account/orders/${res?._key?.path?.segments[1]}`);
-										emptyCart();
-									},
-									(error) => {
-										console.log(error.text);
-									}
-								);
-						})
-						.catch(function (err) {
-							console.log(err);
-						});
-				} catch (error) {
-					console.log(error);
-				}
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
+    const options = {
+      url : "https://api.sandbox.bobgo.co.za/v2/orders?account_id=192",
+      method : "POST",
+      headers : {
+        accept : "application/json",
+        "content-type" : "application/json",
+        Authorization : "Bearer 607cdd7584a0474a98af798c8e3f6ca1",
+      },
+      body,
+    };
+    try {
+      mutateAsync(options).then(() => {
+        try {
+          addDoc(orderCollectionRef, {
+            userID : user?.uid,
+            Phone : checkoutstep.values.profile.number,
+            products : items,
+            address : checkoutstep.values.address,
+            orderNo : generateString(8),
+            OrderDate : fetchDate,
+            delivery_status : "Processing",
+            tracking : "processing",
+            subTotal : cartTotal,
+            shippingTotal : parseInt(value),
+            Total : cartTotal + parseInt(value),
+            timestamp : serverTimestamp(),
+          })
+              .then(function(res) {
+                emailjs
+                    .sendForm(process.env.REACT_APP_EMAILJS_SERVICE,
+                              process.env.REACT_APP_EMAILJS_TEMPLATE,
+                              form.current, process.env.REACT_APP_EMAILJS_API)
+                    .then(
+                        () => {
+                          navigate(`/account/orders/${
+                              res?._key?.path?.segments[1]}`);
+                          emptyCart();
+                        },
+                        (error) => { console.log(error.text); });
+              })
+              .catch(function(err) { console.log(err); });
+        } catch (error) {
+          console.log(error);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-	const createAddress = async () => {
-		if (
-			checkoutstep.values.address.street_address !== "" &&
-			checkoutstep.values.address.local_area !== "" &&
-			checkoutstep.values.address.city !== "" &&
-			checkoutstep.values.address.code !== ""
-		) {
-			try {
-				addDoc(addressCollectionRef, {
-					address: checkoutstep.values.address,
-				});
-			} catch (error) {
-				console.log(error);
-			}
-		}
-	};
+  const createAddress = async () => {
+    if (checkoutstep.values.address.street_address !== "" &&
+        checkoutstep.values.address.local_area !== "" &&
+        checkoutstep.values.address.city !== "" &&
+        checkoutstep.values.address.code !== "") {
+      try {
+        addDoc(addressCollectionRef, {
+          address : checkoutstep.values.address,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
-	// you can call this function anything
-	const onClose = () => {
-		// implementation for  whatever you want to do when the Paystack dialog closed.
-		console.log("closed");
-	};
+  // you can call this function anything
+  const onClose = () => {
+    // implementation for  whatever you want to do when the Paystack dialog
+    // closed.
+    console.log("closed");
+  };
 
-	const componentProps = {
-		...config,
-		text: "Pay with PayStack",
-		onSuccess: () => createOrder(),
-		onClose: onClose,
-	};
+  const componentProps = {
+    ...config,
+    text : "Pay with PayStack",
+    onSuccess : () => createOrder(),
+    onClose : onClose,
+  };
 
-	function handleSubmit(e) {
-		e.preventDefault();
-	}
+  function handleSubmit(e) { e.preventDefault(); }
 
-	const topChildren = () => {
+  const topChildren = () => {
 		return (
 			<div className="cart-main-header">
 				<p className="cart-heading">

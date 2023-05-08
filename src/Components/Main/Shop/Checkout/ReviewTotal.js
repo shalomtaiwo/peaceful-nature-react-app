@@ -1,20 +1,23 @@
-import React from "react";
-import { useCart } from "react-use-cart";
-import { Divider, Image, Space,  Text, Title } from '@mantine/core';
-import { DeliveryContext } from "../Cart/Stepper";
 import "./Checkout.css";
 
-export default function ReviewTotal({ children, reviewClass, summaryClass, childrenTop, style }) {
-    const { cartTotal, items } = useCart();
-    const { value } = React.useContext(DeliveryContext);
+import {Divider, Image, Space, Text, Title} from '@mantine/core';
+import React from "react";
+import {useCart} from "react-use-cart";
+
+import {DeliveryContext} from "../Cart/Stepper";
+
+export default function ReviewTotal(
+    {children, reviewClass, summaryClass, childrenTop, style}) {
+  const {cartTotal, items} = useCart();
+  const {value} = React.useContext(DeliveryContext);
 
     const rows = items.map((element, index) => (
         <div key={index} style={{
-            display: 'flex',
-            padding: '8px 0'
+    display: 'flex', padding: '8px 0'
         }}>
             <div>
-                <Image src={element.img} maw={120} alt={element.desc} />
+                <Image src={element.img} maw={120} alt={
+    element.desc} />
             </div>
             <div>
                 <Text>{element.title}</Text>
