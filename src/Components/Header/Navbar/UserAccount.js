@@ -11,6 +11,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { NavLink } from "react-router-dom";
 import { auth } from "../../../Firebase-config";
 import alertify from "alertifyjs";
+import { signOut } from "firebase/auth";
 
 export default function UserAccount() {
 	const [user] = useAuthState(auth);
