@@ -1,4 +1,4 @@
-import { Menu, ActionIcon } from "@mantine/core";
+import { Menu, ActionIcon, Anchor } from "@mantine/core";
 import {
 	IconSettings,
 	IconUserCircle,
@@ -10,9 +10,20 @@ import {
 import { useAuthState } from "react-firebase-hooks/auth";
 import { NavLink } from "react-router-dom";
 import { auth } from "../../../Firebase-config";
+import alertify from "alertifyjs";
 
 export default function UserAccount() {
 	const [user] = useAuthState(auth);
+
+	function warningNotifier(message) {
+		alertify.set("notifier", "position", "top-center");
+		alertify.warning(message, 2);
+	}
+
+	const logout = async () => {
+		await signOut(auth);
+		warningNotifier("Logged out of Peaceful Nature");
+	};
 
 	return (
 		<Menu
@@ -55,12 +66,17 @@ export default function UserAccount() {
 				{user && (
 					<>
 						<Menu.Divider />
-						<Menu.Item
-							color="red"
-							icon={<IconDoorExit size={14} />}
+						<Anchor
+							href="#"
+							onClick={logout}
 						>
-							Logout
-						</Menu.Item>
+							<Menu.Item
+								color="red"
+								icon={<IconDoorExit size={14} />}
+							>
+								Logout
+							</Menu.Item>
+						</Anchor>
 					</>
 				)}
 			</Menu.Dropdown>
