@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { IconArrowBadgeRight, IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
+import {
+	IconArrowBadgeRight,
+} from "@tabler/icons-react";
 import {
 	Table,
 	Button,
@@ -8,7 +10,6 @@ import {
 	Space,
 	Anchor,
 	Title,
-	ActionIcon,
 	LoadingOverlay,
 } from "@mantine/core";
 import {
@@ -19,21 +20,22 @@ import {
 	orderBy,
 } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollection } from "react-firebase-hooks/firestore";
 import { auth, db } from "../../../../../Firebase-config";
-// import { useState } from "react";
 import ImageGallery from "react-image-gallery";
-import { usePagination } from "use-pagination-firestore";
 
 const Orders = () => {
 	// const [orderLists, setOrderList] = useState([]);
 	const [user] = useAuthState(auth);
 	const navigate = useNavigate();
 
-	const { items, isLoading, isStart, isEnd, getPrev, getNext } = usePagination(
-		query(collection(db, "orders"),orderBy("timestamp", "desc"), where("userID", "==", `${user.uid}`)),
-		{
-			limit: 2,
-		}
+	const [ items, loading, error ] = useCollection(
+		query(
+			collection(db, "orders"),
+			orderBy("timestamp", "desc"),
+			where("userID", "==", `${user.uid}`)
+		),
+		{ snapshotListenOptions: { includeMetadataChanges: true } }
 	);
 
 	// React.useEffect(() => {
@@ -74,33 +76,13 @@ const Orders = () => {
 		});
 		return newS;
 	};
-	if(isLoading){
-		return <LoadingOverlay />
+	if (loading) {
+		return <LoadingOverlay />;
 	}
 
 	return (
 		<div>
-			<div
-				className="filter_list"
-				style={{
-					padding: "10px",
-					width: "100%",
-				}}
-			>
-				<ActionIcon
-					onClick={getPrev}
-					disabled={isStart && true}
-				>
-					<IconChevronLeft />
-				</ActionIcon>
-				<ActionIcon
-					onClick={getNext}
-					disabled={isEnd && true}
-				>
-					<IconChevronRight />
-				</ActionIcon>
-			</div>
-			{items < 1 ? (
+			{items.docs < 1 ? (
 				<div
 					style={{
 						display: "flex",
@@ -384,7 +366,7 @@ const Orders = () => {
 				</div>
 			) : (
 				<>
-					{items.map((neworder, index) => (
+					{items.docs.map((neworder, index) => (
 						<>
 							<Space h="xl" />
 							<div
